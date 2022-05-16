@@ -1,0 +1,16 @@
+spring:
+  profiles.active: production
+
+---
+spring:
+  profiles: test_profile
+
+server:
+  port: 8864
+
+---
+spring:
+  profiles: production
+
+server:
+  port: 8863
