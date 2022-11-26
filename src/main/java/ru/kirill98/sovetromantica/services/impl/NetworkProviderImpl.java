@@ -35,8 +35,11 @@ public class NetworkProviderImpl implements NetworkProvider {
                 content.append(inputLine);
             }
             in.close();
-            return content.toString();
+            String responseUrl = content.toString();
+            log.info(String.format("Was get page from string: %s", url));
+            return responseUrl;
         } catch (IOException e) {
+            log.error(String.format("Error get url from string: %s. %s",url, e));
             return "error";
         }
     }

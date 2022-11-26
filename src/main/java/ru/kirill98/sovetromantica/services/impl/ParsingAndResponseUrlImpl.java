@@ -26,14 +26,18 @@ public class ParsingAndResponseUrlImpl implements ParsingAndResponseUrl {
         int endIndex = page.indexOf("\", \"preroll\"");
         int startIndex = page.indexOf("\"file\":\"https://") + 8;
         if (endIndex == -1) {
+            log.error(String.format("can't find link in page: %s", url));
             return "error";
         }
-        return page.substring(startIndex, endIndex);
+        String gotLinkFromUrl = page.substring(startIndex, endIndex);
+        log.info(String.format("was find link: %s, in page: %s", gotLinkFromUrl, url));
+        return gotLinkFromUrl;
     }
     public ParsRequest parsRequest(String string) throws UnsupportedEncodingException {
         String parameters = URLDecoder.decode(string, StandardCharsets.UTF_8.name());
         String readyString = parameters.replaceAll("=", "");
         Type itemsListType = new TypeToken<ParsRequest>() {}.getType();
+        log.info(String.format("was pars string: %s", string));
         return gson.fromJson(readyString, itemsListType);
     }
 }
